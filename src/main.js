@@ -114,59 +114,34 @@ class Conjugation {
 
 function touConjugation(affirmative, polite, tense, isKanji) {
   let firstLetter = isKanji ? "問" : "と";
-  if (tense == "present") {
-    if (affirmative && polite) {
-      return firstLetter + "います";
-    } else if (affirmative && !polite) {
-      return firstLetter + "う";
-    } else if (!affirmative && polite) {
-      return [firstLetter + "いません", firstLetter + "わないです"];
-    } else if (!affirmative && !polite) {
-      return firstLetter + "わない";
-    }
-  }
-  else if (tense == "past") {
-    if (affirmative && polite) {
-      return firstLetter + "いました";
-    } else if (affirmative && !polite) {
-      return firstLetter + "うた";
-    } else if (!affirmative && polite) {
-      return [firstLetter + "いませんでした", firstLetter + "わなかったです"];
-    } else if (!affirmative && !polite) {
-      return firstLetter + "わなかった";
-    }
+
+  if (tense == "past" && affirmative && !polite) {
+    return firstLetter + "うた";
   }
   else if (tense == "te") {
     return firstLetter + "うて";
   }
+
+  return regularVerbConjugation(firstLetter + "う", "u", affirmative, polite, tense);
 }
 
 function aruConjugation(affirmative, polite, tense) {
   if (tense == "present") {
-    if (affirmative && polite) {
-      return "あります";
-    } else if (affirmative && !polite) {
-      return "ある";
-    } else if (!affirmative && polite) {
+    if (!affirmative && polite) {
       return ["ありません", "ないです"];
     } else if (!affirmative && !polite) {
       return "ない";
     }
   }
   else if (tense == "past") {
-    if (affirmative && polite) {
-      return "ありました";
-    } else if (affirmative && !polite) {
-      return "あった";
-    } else if (!affirmative && polite) {
+    if (!affirmative && polite) {
       return ["ありませんでした", "なかったです"];
     } else if (!affirmative && !polite) {
       return "なかった";
     }
   }
-  else if (tense == "te") {
-    return "あって";
-  }
+
+  return regularVerbConjugation("ある", "u", affirmative, polite, tense);
 }
 
 function kuruConjugation(affirmative, polite, tense, isKanji) {
@@ -239,31 +214,15 @@ function suruConjugation(affirmative, polite, tense) {
 
 function ikuConjugation(affirmative, polite, tense, isKanji) {
   let firstLetter = isKanji ? "行" : "い";
-  if (tense == "present") {
-    if (affirmative && polite) {
-      return firstLetter + "きます";
-    } else if (affirmative && !polite) {
-      return firstLetter + "く";
-    } else if (!affirmative && polite) {
-      return [firstLetter + "きません", firstLetter + "かないです"];
-    } else if (!affirmative && !polite) {
-      return firstLetter + "かない";
-    }
-  }
-  else if (tense == "past") {
-    if (affirmative && polite) {
-      return firstLetter + "きました";
-    } else if (affirmative && !polite) {
-      return firstLetter + "った";
-    } else if (!affirmative && polite) {
-      return [firstLetter + "きませんでした", firstLetter + "かなかったです"];
-    } else if (!affirmative && !polite) {
-      return firstLetter + "かなかった";
-    }
+
+  if (tense == "past" && affirmative && !polite) {
+    return firstLetter + "った";
   }
   else if (tense == "te") {
     return firstLetter + "って";
   }
+
+  return regularVerbConjugation(firstLetter + "く", "u", affirmative, polite, tense);
 }
 
 function checkSuffix(hiraganaWord, suffix) {
