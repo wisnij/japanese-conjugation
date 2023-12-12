@@ -23,7 +23,7 @@ const defaultSettings = () => {
 
 function removeNonConjugationSettings(settings) {
   let prunedSettings = JSON.parse(JSON.stringify(settings));
-  
+
   nonConjugationSettings.forEach(s => {
     delete prunedSettings[s];
   })
@@ -79,7 +79,7 @@ function loadNewWord(wordList) {
   let word = pickRandomWord(wordList);
   updateCurrentWord(word);
   if (!isTouch) {
-    document.getElementsByTagName("input")[0].focus(); 
+    document.getElementsByTagName("input")[0].focus();
   }
   changeVerbBoxFontColor("rgb(232, 232, 232)");
   return word;
@@ -309,6 +309,72 @@ function irregularVerbConjugation(hiraganaVerb, affirmative, polite, tense) {
  return "Error";
 }
 
+function regularVerbConjugation(hiraganaVerb, type, affirmative, polite, tense) {
+  if (tense == "present") {
+    if (affirmative && polite) {
+      return masuStem(hiraganaVerb, type) + "ます";
+    }
+    else if (affirmative && !polite) {
+      return hiraganaVerb;
+    }
+    else if (!affirmative && polite) {
+      return [masuStem(hiraganaVerb, type) + "ません", plainNegativeComplete(hiraganaVerb, type) + "です"];
+    }
+    else if (!affirmative && !polite) {
+      return plainNegativeComplete(hiraganaVerb, type);
+    }
+  }
+
+  else if (tense == "past") {
+    if (affirmative && polite) {
+      return masuStem(hiraganaVerb, type) + "ました";
+    }
+    else if (affirmative && !polite && type == "u") {
+      return dropFinalLetter(hiraganaVerb) +
+        changeToPastPlain(hiraganaVerb.charAt(hiraganaVerb.length - 1));
+    } else if (affirmative && !polite && type == "ru") {
+      return masuStem(hiraganaVerb, type) + "た";
+    }
+
+    else if (!affirmative && polite) {
+      let plainNegative = plainNegativeComplete(hiraganaVerb, type);
+      let plainNegativePast = dropFinalLetter(plainNegative) + "かった";
+      return [masuStem(hiraganaVerb, type) + "ませんでした", plainNegativePast + "です"];
+    }
+    else if (!affirmative && !polite) {
+      let plainNegative = plainNegativeComplete(hiraganaVerb, type);
+      return dropFinalLetter(plainNegative) + "かった";
+    }
+  }
+
+  else if (tense == "te") {
+    if (type == "u") {
+      let finalChar = hiraganaVerb.charAt(hiraganaVerb.length - 1);
+      if (finalChar == "う" || finalChar == "つ" || finalChar == "る") {
+        return dropFinalLetter(hiraganaVerb) + "って";
+      }
+      else if (finalChar == "む" || finalChar == "ぶ" || finalChar == "ぬ") {
+        return dropFinalLetter(hiraganaVerb) + "んで";
+      }
+      else if (finalChar == "く") {
+        return dropFinalLetter(hiraganaVerb) + "いて";
+      }
+      else if (finalChar == "ぐ") {
+        return dropFinalLetter(hiraganaVerb) + "いで";
+      }
+      else if (finalChar == "す") {
+        return dropFinalLetter(hiraganaVerb) + "して";
+      }
+    }
+
+    else if (type == "ru") {
+      return masuStem(hiraganaVerb, type) + "て";
+    }
+  }
+
+  return "Error";
+}
+
 function iiConjugation(affirmative, polite, tense) {
   if (tense == "present") {
     if (affirmative && polite) {
@@ -452,69 +518,24 @@ let conjugationFunctions = {
       if (type == "irv") {
         return irregularVerbConjugation(hiraganaVerb, affirmative, polite, "present");
       }
-      else if (affirmative && polite) {
-        return masuStem(hiraganaVerb, type) + "ます";
-      }
-      else if (affirmative && !polite) {
-        return hiraganaVerb;
-      }
-      else if (!affirmative && polite) {
-        return [masuStem(hiraganaVerb, type) + "ません", plainNegativeComplete(hiraganaVerb, type) + "です"];
-      }
-      else if (!affirmative && !polite) {
-        return plainNegativeComplete(hiraganaVerb, type);
+      else {
+        return regularVerbConjugation(hiraganaVerb, type, affirmative, polite, "present");
       }
     },
     past: function(hiraganaVerb, type, affirmative, polite) {
       if (type == "irv") {
         return irregularVerbConjugation(hiraganaVerb, affirmative, polite, "past");
       }
-      else if (affirmative && polite) {
-        return masuStem(hiraganaVerb, type) + "ました";
-      }
-      else if (affirmative && !polite && type == "u") {
-        return dropFinalLetter(hiraganaVerb) +
-        changeToPastPlain(hiraganaVerb.charAt(hiraganaVerb.length - 1));
-      } else if (affirmative && !polite && type == "ru") {
-        return masuStem(hiraganaVerb, type) + "た";
-      }
-
-      else if (!affirmative && polite) {
-        let plainNegative = plainNegativeComplete(hiraganaVerb, type);
-        let plainNegativePast = dropFinalLetter(plainNegative) + "かった";
-        return [masuStem(hiraganaVerb, type) + "ませんでした", plainNegativePast + "です"];
-      }
-      else if (!affirmative && !polite) {
-        let plainNegative = plainNegativeComplete(hiraganaVerb, type);
-        return dropFinalLetter(plainNegative) + "かった";
+      else {
+        return regularVerbConjugation(hiraganaVerb, type, affirmative, polite, "past");
       }
     },
     te: function(hiraganaVerb, type) {
       if (type == "irv") {
         return irregularVerbConjugation(hiraganaVerb, false, false, "te");
       }
-
-      else if (type == "u") {
-        let finalChar = hiraganaVerb.charAt(hiraganaVerb.length - 1);
-        if (finalChar == "う" || finalChar == "つ" || finalChar == "る") {
-          return dropFinalLetter(hiraganaVerb) + "って";
-        }
-        else if (finalChar == "む" || finalChar == "ぶ" || finalChar == "ぬ") {
-          return dropFinalLetter(hiraganaVerb) + "んで";
-        }
-        else if (finalChar == "く") {
-          return dropFinalLetter(hiraganaVerb) + "いて";
-        }
-        else if (finalChar == "ぐ") {
-          return dropFinalLetter(hiraganaVerb) + "いで";
-        }
-        else if (finalChar == "す") {
-          return dropFinalLetter(hiraganaVerb) + "して";
-        }
-      }
-
-      else if (type == "ru") {
-        return masuStem(hiraganaVerb, type) + "て";
+      else {
+        return regularVerbConjugation(hiraganaVerb, type, false, false, "te");
       }
     }
   },
@@ -740,7 +761,7 @@ function addValueToProbabilities(currentWords, value, operation) {
 }
 
 // words to ignore will be object with properties word, roundssinceshown, amountToAddFunction
-// if amount of current words is less than 
+// if amount of current words is less than
 function updateProbabilites(currentWords, wordsRecentlySeen, currentWord, currentWordMissed) {
   // not worth/possible if small pool of words
   const roundToWait = 2;
@@ -800,7 +821,7 @@ function pickRandomWord(wordList) {
       for (let j = 0; j < wordList[i].length; j++) {
         if (random < wordList[i][j].probability) {
           return wordList[i][j];
-        }   
+        }
         random -= wordList[i][j].probability;
       }
     }
@@ -824,7 +845,7 @@ function addToScore(amount = 1, maxScoreObjects, maxScoreIndex) {
     max.textContent = newAmount;
     if (!document.getElementById("max-streak").classList.contains("display-none")) {
       max.classList.add("grow-animation");
-    }  
+    }
 
     maxScoreObjects[maxScoreIndex].score = newAmount;
     localStorage.setItem("maxScoreObjects", JSON.stringify(maxScoreObjects));
@@ -833,7 +854,7 @@ function addToScore(amount = 1, maxScoreObjects, maxScoreIndex) {
   current.textContent = parseInt(current.textContent) + amount;
   if (!document.getElementById("current-streak").classList.contains("display-none")) {
       current.classList.add("grow-animation");
-    }  
+    }
 }
 
 function typeToWordBoxColor(type) {
@@ -1061,7 +1082,7 @@ function optionsMenuInit() {
   document.querySelectorAll('input[name="adjective"]')[0].addEventListener("click", verbAndAdjCheckError);
 
   // top level errors
-  // call verbAndAdjCheckError from 
+  // call verbAndAdjCheckError from
   let optionsView = document.getElementById("options-view");
   optionsView.addEventListener("click", verbPresAffPlainCheckError);
   optionsView.addEventListener("click", adjPresAffPlainCheckError);
@@ -1179,7 +1200,7 @@ class ConjugationApp {
       this.state.currentWord = loadNewWord(this.state.currentWordList);
       this.state.loadWordOnReset = false;
     }
-    
+
   }
 
   onResultsViewKeyDown(e) {
@@ -1204,7 +1225,7 @@ class ConjugationApp {
     if (keyCode == '13') {
       let inputElt = document.getElementsByTagName("input")[0];
       e.stopPropagation();
-      
+
       let inputValue = inputElt.value;
       const finalChar = inputValue[inputValue.length - 1];
       switch(finalChar) {
@@ -1270,12 +1291,12 @@ class ConjugationApp {
 
     document.getElementById("main-view").style.display = "none";
     document.getElementById("options-view").style.display = "block";
-    document.getElementById("donation-seciton").style.display = "block";   
+    document.getElementById("donation-seciton").style.display = "block";
   }
 
   backButtonClicked(e) {
     e.preventDefault();
-    
+
     let inputs = document.getElementById("options-form").querySelectorAll('[type="checkbox"]');
     let newMaxScoreSettings = {};
     for (let input of Array.from(inputs)) {
@@ -1310,7 +1331,7 @@ class ConjugationApp {
     document.getElementById("options-view").style.display = "none";
     document.getElementById("donation-seciton").style.display = "none";
   }
-  
+
   initState(words) {
     this.state = {};
     this.state.completeWordList = createWordList(words);
@@ -1322,7 +1343,7 @@ class ConjugationApp {
       this.state.settings = defaultSettings();
       localStorage.setItem("settings", JSON.stringify(this.state.settings));
 
-      this.state.maxScoreObjects = [new maxScoreObject(0, removeNonConjugationSettings(this.state.settings))]; 
+      this.state.maxScoreObjects = [new maxScoreObject(0, removeNonConjugationSettings(this.state.settings))];
       localStorage.setItem("maxScoreObjects", JSON.stringify(this.state.maxScoreObjects));
     } else {
       this.state.maxScoreIndex = parseInt(localStorage.getItem("maxScoreIndex"));
