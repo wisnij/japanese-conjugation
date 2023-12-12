@@ -1,10 +1,16 @@
 export const wordData = {
     "verbs": [
+        // irregular
         {"kanji":"行<rt>い<\/rt>く","type":"irv","eng":"go"},
         {"kanji":"する","type":"irv","eng":"do, make"},
         {"kanji":"来<rt>く<\/rt>る","type":"irv","eng":"come"},
         {"kanji":"ある","type":"irv","eng":"have, exists, is (inanimate)"},
         {"kanji":"問<rt>と<\/rt>う","type":"irv","eng":"ask, accuse"},
+        {"kanji":"勉<rt>べん<\/rt>強<rt>きょう<\/rt>する","type":"irv","eng":"study"},
+        {"kanji":"運<rt>うん<\/rt>動<rt>どう<\/rt>する","type":"irv","eng":"exercise"},
+        {"kanji":"持<rt>も<\/rt>って<ruby>行<rt>い<\/rt><\/ruby>く","type":"irv","eng":"take, carry away"},
+
+        // 一段
         {"kanji":"いる","type":"ru","eng":"exists, is (living things)"},
         {"kanji":"出<rt>で<\/rt>来<rt>き<\/rt>る","type":"ru","eng":"able, can do"},
         {"kanji":"始<rt>はじ<\/rt>める","type":"ru","eng":"begin"},
@@ -25,6 +31,8 @@ export const wordData = {
         {"kanji":"寝<rt>ね<\/rt>る","type":"ru","eng":"sleep, go to bed"},
         {"kanji":"閉<rt>し<\/rt>める","type":"ru","eng":"close"},
         {"kanji":"着<rt>き<\/rt>る","type":"ru","eng":"put on, wear (shirt, jacket, etc)"},
+
+        // る (五段)
         {"kanji":"なる","type":"u","eng":"become"},
         {"kanji":"乗<rt>の<\/rt>る","type":"u","eng":"board, ride"},
         {"kanji":"切<rt>き<\/rt>る","type":"u","eng":"cut"},
@@ -35,53 +43,69 @@ export const wordData = {
         {"kanji":"作<rt>つく<\/rt>る","type":"u","eng":"make, build"},
         {"kanji":"帰<rt>かえ<\/rt>る","type":"u","eng":"return, go home"},
         {"kanji":"取<rt>と<\/rt>る","type":"u","eng":"take, steal"},
+        {"kanji":"分<rt>わ<\/rt>かる","type":"u","eng":"understand"},
+
+        // う
         {"kanji":"買<rt>か<\/rt>う","type":"u","eng":"buy"},
         {"kanji":"笑<rt>わら<\/rt>う","type":"u","eng":"laugh, smile"},
         {"kanji":"会<rt>あ<\/rt>う","type":"u","eng":"meet"},
         {"kanji":"言<rt>い<\/rt>う","type":"u","eng":"say, utter"},
         {"kanji":"思<rt>おも<\/rt>う","type":"u","eng":"think, believe"},
         {"kanji":"使<rt>つか<\/rt>う","type":"u","eng":"use"},
+
+        // つ
         {"kanji":"持<rt>も<\/rt>つ","type":"u","eng":"hold, have"},
         {"kanji":"待<rt>ま<\/rt>つ","type":"u","eng":"wait"},
         {"kanji":"立<rt>た<\/rt>つ","type":"u","eng":"stand up"},
+        {"kanji":"受<rt>う<\/rt>け<ruby>持<rt>も<\/rt><\/ruby>つ","type":"u","eng":"take charge of"},
+
+        // く
         {"kanji":"聞<rt>き<\/rt>く","type":"u","eng":"hear, listen"},
         {"kanji":"引<rt>ひ<\/rt>く","type":"u","eng":"pull, tug"},
         {"kanji":"履<rt>は<\/rt>く","type":"u","eng":"put on, wear (pants, skirt, shoes, etc)"},
         {"kanji":"歩<rt>ある<\/rt>く","type":"u","eng":"walk"},
         {"kanji":"書<rt>か<\/rt>く","type":"u","eng":"write"},
         {"kanji":"働<rt>はたら<\/rt>く","type":"u","eng":"work"},
+        {"kanji":"食<rt>た<\/rt>べ<ruby>歩<rt>ある<\/rt><\/ruby>く","type":"u","eng":"try food at various restaurants"},
+
+        // ぬ
         {"kanji":"死<rt>し<\/rt>ぬ","type":"u","eng":"die, pass away"},
+
+        // む
         {"kanji":"飲<rt>の<\/rt>む","type":"u","eng":"drink"},
         {"kanji":"楽<rt>たの<\/rt>しむ","type":"u","eng":"enjoy, have fun"},
         {"kanji":"進<rt>すす<\/rt>む","type":"u","eng":"advance, go forward"},
         {"kanji":"住<rt>す<\/rt>む","type":"u","eng":"live, inhabit"},
         {"kanji":"読<rt>よ<\/rt>む","type":"u","eng":"read"},
         {"kanji":"休<rt>やす<\/rt>む","type":"u","eng":"rest, be absent"},
+
+        // ぶ
         {"kanji":"遊<rt>あそ<\/rt>ぶ","type":"u","eng":"play, have a good time"},
         {"kanji":"学<rt>まな<\/rt>ぶ","type":"u","eng":"study, learn"},
         {"kanji":"選<rt>えら<\/rt>ぶ","type":"u","eng":"choose, select"},
+
+        // す
         {"kanji":"返<rt>かえ<\/rt>す","type":"u","eng":"return (something), put back"},
         {"kanji":"押<rt>お<\/rt>す","type":"u","eng":"push, press"},
         {"kanji":"治<rt>なお<\/rt>す","type":"u","eng":"cure, repair"},
         {"kanji":"話<rt>はな<\/rt>す","type":"u","eng":"talk, speak"},
         {"kanji":"探<rt>さが<\/rt>す","type":"u","eng":"search, look for"},
         {"kanji":"貸<rt>か<\/rt>す","type":"u","eng":"lend, loan"},
+
+        // ぐ
         {"kanji":"泳<rt>およ<\/rt>ぐ","type":"u","eng":"swim"},
         {"kanji":"脱<rt>ぬ<\/rt>ぐ","type":"u","eng":"take off clothes, undress"},
         {"kanji":"急<rt>いそ<\/rt>ぐ","type":"u","eng":"hurry"},
         {"kanji":"稼<rt>かせ<\/rt>ぐ","type":"u","eng":"earn income, make money"},
         {"kanji":"寛<rt>くつろ<\/rt>ぐ","type":"u","eng":"relax, feel at home"},
-        {"kanji":"繋<rt>つな<\/rt>ぐ","type":"u","eng":"connect, link together"},
-        {"kanji":"分<rt>わ<\/rt>かる","type":"u","eng":"understand"},
-        {"kanji":"勉<rt>べん<\/rt>強<rt>きょう<\/rt>する","type":"irv","eng":"study"},
-        {"kanji":"運<rt>うん<\/rt>動<rt>どう<\/rt>する","type":"irv","eng":"exercise"},
-        {"kanji":"受<rt>う<\/rt>け<ruby>持<rt>も<\/rt><\/ruby>つ","type":"u","eng":"take charge of"},
-        {"kanji":"持<rt>も<\/rt>って<ruby>行<rt>い<\/rt><\/ruby>く","type":"irv","eng":"take, carry away"},
-        {"kanji":"食<rt>た<\/rt>べ<ruby>歩<rt>ある<\/rt><\/ruby>く","type":"u","eng":"try food at various restaurants"}
+        {"kanji":"繋<rt>つな<\/rt>ぐ","type":"u","eng":"connect, link together"}
     ],
     "adjectives": [
+        // irregular
         {"kanji":"いい","type":"ira","eng":"good"},
         {"kanji":"かっこいい","type":"ira","eng":"cool, handsome"},
+
+        // い
         {"kanji":"赤<rt>あか<\/rt>い","type":"i","eng":"red"},
         {"kanji":"新<rt>あたら<\/rt>しい","type":"i","eng":"new"},
         {"kanji":"暑<rt>あつ<\/rt>い","type":"i","eng":"hot (weather)"},
@@ -101,6 +125,8 @@ export const wordData = {
         {"kanji":"欲<rt>ほ<\/rt>しい","type":"i","eng":"wanted, desired"},
         {"kanji":"難<rt>むずか<\/rt>しい","type":"i","eng":"difficult"},
         {"kanji":"安<rt>やす<\/rt>い","type":"i","eng":"cheap"},
+
+        // な
         {"kanji":"好<rt>す<\/rt>き","type":"na","eng":"like"},
         {"kanji":"有<rt>ゆう<\/rt>名<rt>めい<\/rt>","type":"na","eng":"famous"},
         {"kanji":"きれい","type":"na","eng":"beautiful, tidy"},
